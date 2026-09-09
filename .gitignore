@@ -10,3 +10,6 @@ __pycache__/
 # SQLite runtime sidecars
 *.db-shm
 *.db-wal
+
+# Deployment/runtime database
+mplads_sentinel.db
