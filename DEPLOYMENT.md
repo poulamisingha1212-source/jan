@@ -1,5 +1,37 @@
 # Render Deployment
 
+## No-Payment Option
+
+Use **GitHub Pages for the frontend** and a **free Hugging Face Docker Space for
+the FastAPI backend**. This avoids Render billing, but the backend may sleep
+when idle and the free storage/compute limits may require using the smaller
+sample dataset instead of the full cached snapshot.
+
+1. Create a Hugging Face Space with Docker and copy the backend service files,
+   `model/`, `data/`, `requirements.txt`, and `mplads_sentinel.db` into it.
+2. Start the Space with:
+
+```bash
+uvicorn backend.main:app --host 0.0.0.0 --port 7860
+```
+
+3. Set `CORS_ORIGINS` in the Space to your GitHub Pages URL.
+4. Build the frontend with the Space API URL:
+
+```bash
+cd frontend
+npm ci
+$env:VITE_API_BASE_URL="https://YOUR-SPACE.hf.space"
+npm run build
+```
+
+5. Publish the generated `frontend/dist/` folder using GitHub Pages.
+
+GitHub Pages cannot run the FastAPI backend by itself. The backend and frontend
+must therefore be hosted separately. For a lighter free demo, set
+`MPLADS_DATASET_PATH=data/mplads_raw_sample.csv` and use the 776-work sample;
+the full SQLite database and cached CSV may exceed free Space storage limits.
+
 This project deploys as two Render services:
 
 - `mplads-sentinel-api`: FastAPI backend on Render's `$PORT`
