@@ -1,0 +1,12 @@
+# Local environment and generated caches
+.env
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+.pytest_cache/
+.mimosa/
+*.py[cod]
+
+# SQLite runtime sidecars
+*.db-shm
+*.db-wal
