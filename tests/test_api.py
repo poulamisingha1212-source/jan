@@ -8,20 +8,6 @@ from backend.config import settings
 client = TestClient(app)
 
 
-def pytest_configure(config):
-    """Prototype pipeline: if the database is empty (fresh environment),
-    seed it from the bundled sample dataset so the API tests never touch
-    the network."""
-    from backend.database import engine, Base
-    from backend.services.ingestion import run_ingestion
-    Base.metadata.create_all(bind=engine)
-    db = SessionLocal()
-    try:
-        count = db.query(Work.work_id).count()
-    finally:
-        db.close()
-    if count == 0:
-        run_ingestion(source_file_path=settings.SAMPLE_DATA_PATH)
 
 
 def test_get_works_pagination_and_priority_order():

@@ -1,8 +1,10 @@
 from typing import Optional, List, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from datetime import datetime
 
 class WorkListItem(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     work_id: str
     mp_name: Optional[str] = None
     state: Optional[str] = None
@@ -24,9 +26,6 @@ class WorkListItem(BaseModel):
     rule_flags_triggered: List[str] = []
     causes: List[str] = []
     human_review_outcome: Optional[str] = None
-
-    class Config:
-        from_attributes = True
 
 
 class WorkPaginationResponse(BaseModel):
@@ -228,6 +227,8 @@ class HealthResponse(BaseModel):
 
 
 class SyncLogResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     run_timestamp: datetime
     start_time: datetime
@@ -240,6 +241,3 @@ class SyncLogResponse(BaseModel):
     rows_updated: int
     rows_rejected: int
     error_message: Optional[str] = None
-
-    class Config:
-        from_attributes = True
