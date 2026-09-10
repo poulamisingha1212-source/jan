@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Users, FileText, Wallet, Search, Loader2, X, Building2, ChevronRight } from 'lucide-react';
+import { MapPin, Users, Search, Building2, ChevronRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -83,7 +83,7 @@ function StateCard({ state, rank, onOpen }) {
   );
 }
 
-function StateDossier({ state, profile, isLoading, onOpenMP }) {
+function StateDossier({ profile, isLoading, onOpenMP }) {
   if (isLoading || !profile) {
     return (
       <div className="space-y-3 py-4">
@@ -250,7 +250,6 @@ export default function StatesView({ house, onOpenMP }) {
             </DialogTitle>
           </DialogHeader>
           <StateDossier
-            state={selectedState}
             profile={profile}
             isLoading={profileLoading}
             onOpenMP={(mp) => onOpenMP(mp)}

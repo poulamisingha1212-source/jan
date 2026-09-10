@@ -4,7 +4,6 @@ import {
   TrendingUp, Wallet, Layers, Activity, FileDown, Landmark, Gauge, Info, Bot,
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Doughnut, Bar } from 'react-chartjs-2';
@@ -13,7 +12,6 @@ import { BorderBeam } from '@/components/magicui/border-beam';
 import { BlurFade } from '@/components/magicui/blur-fade';
 import { paletteColor, formatINR, formatNumber } from '@/lib/format';
 import { LIGHT_TOOLTIP, TICK_FONT, AXIS_LABEL_FONT } from '@/lib/chart';
-import { CountUp } from '@/components/dashboard/CountUp';
 import UtilizationGauge from '@/components/dashboard/UtilizationGauge';
 import StateAllocationChart from '@/components/dashboard/StateAllocationChart';
 import RiskTierDonut from '@/components/dashboard/RiskTierDonut';
@@ -22,17 +20,12 @@ import { apiUrl } from '@/lib/api';
 export default function PortfolioOverview({
   stats,
   house,
-  syncStatus,
-  onTriggerSync,
-  isSyncing,
-  currentRole,
   onFilterByEntity,
   error
 }) {
   const [categoryData, setCategoryData] = useState(null);
   const [statusData, setStatusData] = useState(null);
   const [statesData, setStatesData] = useState([]);
-  const [mpTotal, setMpTotal] = useState(0);
   const [analyticsError, setAnalyticsError] = useState(null);
   const categoryChartRef = useRef(null);
 
@@ -65,11 +58,6 @@ export default function PortfolioOverview({
       .then((res) => res.json())
       .then((d) => setStatesData(d.items || []))
       .catch((err) => console.error('States failed:', err));
-    // Total MPs in scope
-    fetch(apiUrl(`/api/mps?page_size=1${house ? `&house=${encodeURIComponent(house)}` : ''}`))
-      .then((res) => res.json())
-      .then((d) => setMpTotal(d.total || 0))
-      .catch(() => {});
   }, [house]);
 
   if (!stats) {
