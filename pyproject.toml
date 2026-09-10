@@ -1,2 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mplads-ai-sentinel"
+version = "1.0.0"
+description = "MoSPI (SIH26102) MPLADS AI Sentinel — Audit & Anomaly Prioritization Platform"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+    "sqlalchemy>=2.0.0",
+    "psycopg2-binary>=2.9.0",
+    "apscheduler>=3.10.0",
+    "pydantic>=2.8.0",
+    "pandas>=2.2.0",
+    "numpy>=1.26.0",
+    "scikit-learn>=1.5.0",
+    "xgboost>=2.1.0",
+    "joblib>=1.4.0",
+    "python-multipart>=0.0.9",
+    "pytest>=8.3.0",
+    "httpx>=0.27.0",
+    "requests>=2.32.0",
+]
+
 [tool.vercel]
 entrypoint = "backend.main:app"
